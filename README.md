@@ -1,4 +1,3 @@
-# username.github.io
 # 隐私政策
 
 **产品：各平台数据统计 Chrome 扩展**  
