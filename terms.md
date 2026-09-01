@@ -13,7 +13,7 @@ title: 销售条款
 
 ## 销售方与适用范围
 
-销售方为 Chrome Web Store 商店页所列发布者 JohnLee1997。支持邮箱：[ximplexxx@protonmail.com](mailto:ximplexxx@protonmail.com)。本扩展及销售方并非 Google、YouTube、X、OKX、Supabase、TwitterAPI.io 或 X Layer 的附属机构。
+销售方为 Chrome Web Store 商店页所列发布者。支持邮箱：[ximplexxx@protonmail.com](mailto:ximplexxx@protonmail.com)。本扩展及销售方并非 Google、YouTube、X、OKX、Supabase、TwitterAPI.io 或 X Layer 的附属机构。
 
 仅在你所在地法律允许的情况下购买和使用。页面价格、积分和权益以创建订单时显示的内容为准。
 
