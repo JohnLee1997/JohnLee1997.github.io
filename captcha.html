@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>人机验证</title>
+  <style>
+    html,body{margin:0;min-height:70px;background:transparent;color:#596474;font:12px/1.4 system-ui,sans-serif}
+    #captcha{display:flex;min-height:65px;align-items:center;justify-content:center}
+    #error{padding:10px;color:#b42318;text-align:center}
+  </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+  <script src="captcha.js" defer></script>
+</head>
+<body>
+  <div id="captcha"></div>
+  <div id="error" hidden></div>
+</body>
+</html>
