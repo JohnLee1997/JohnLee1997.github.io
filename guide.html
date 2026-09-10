@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="从第一次登录到查询、导出和充值，按步骤开始使用各平台数据统计。">
+<title>使用手册｜各平台数据统计</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f6f9; --surface: #fff; --surface-2: #f3f5f8;
+  --text: #18202b; --muted: #596579; --border: #dce2ea;
+  --primary: #b92f27; --brand: #ef493c; --success: #178447;
+  --success-soft: #eaf8f0; --warning: #9d241c; --warning-soft: #fff0ee;
+  --link: #245cb0; --shadow: 0 24px 70px rgba(16,24,40,.09);
+  --space: 8px; --radius: 24px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  margin: 0; min-height: 100vh; padding: clamp(16px,4vw,48px);
+  background: radial-gradient(circle at 14% 0%,rgba(239,73,60,.09),transparent 32%),
+    radial-gradient(circle at 95% 80%,rgba(23,132,71,.07),transparent 34%),var(--bg);
+  color: var(--text); font-family: Inter,"Noto Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size: 15px; line-height: 1.85; overflow-wrap: anywhere;
+}
+a { color: var(--link); text-underline-offset: 4px; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
+.skip-link { position: absolute; top: 8px; left: 16px; transform: translateY(-200%); padding: 8px 16px; background: var(--surface); z-index: 5; }
+.skip-link:focus { transform: none; }
+.site-header, .page, .site-footer { width: min(100%,1080px); margin-inline: auto; }
+.site-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-size: 14px; font-weight: 750; text-decoration: none; min-height: 44px; }
+.brand-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(145deg,var(--brand),#ff8a55); color: #fff; box-shadow: 0 7px 16px rgba(239,73,60,.16); }
+.brand-mark svg { width: 19px; height: 19px; }
+.page-nav { display: flex; padding: 4px; gap: 4px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+.page-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none; color: var(--muted); transition: background .16s,transform .16s; }
+.page-nav a[aria-current="page"] { background: var(--warning-soft); color: var(--primary); }
+.page-nav a:hover { background: var(--surface-2); transform: translateY(-1px); }
+.page-nav a:active, .button:active { transform: scale(.98); }
+.page { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); animation: card-in .4s ease-out; }
+.hero { position: relative; padding: clamp(24px,5vw,48px); border-bottom: 1px solid var(--border); overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; }
+.hero::before { content: ""; position: absolute; top: -105px; right: -50px; width: 270px; height: 270px; border-radius: 50%; background: var(--success-soft); opacity: .7; pointer-events: none; }
+.hero > * { position: relative; }
+.eyebrow { display: flex; gap: 10px; align-items: center; margin: 0 0 16px; font-size: 12px; font-weight: 750; color: var(--success); letter-spacing: .06em; }
+.document-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: var(--success-soft); border: 1px solid color-mix(in srgb,var(--success) 18%,transparent); }
+.document-icon svg { width: 22px; height: 22px; }
+h1 { margin: 0; font-size: clamp(30px,5vw,42px); line-height: 1.25; letter-spacing: -.035em; }
+.lead { margin: 16px 0 24px; max-width: 650px; color: var(--muted); font-size: 15px; }
+.updated { margin: 0; color: var(--muted); font-size: 12px; }
+.introduction { padding: clamp(24px,4vw,40px) clamp(24px,4vw,40px) 0; }
+.introduction > :last-child { margin-bottom: 0; }
+.layout { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 40px; padding: clamp(24px,4vw,40px); }
+.sidebar { min-width: 0; }
+.contents { position: sticky; top: 24px; padding: 16px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface-2); }
+.contents summary { min-height: 44px; display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 13px; font-weight: 750; cursor: pointer; }
+.contents summary::before { content: "−"; color: var(--muted); font-size: 18px; }
+.contents:not([open]) summary::before { content: "+"; }
+.contents ol { margin: 8px 0 0; padding: 0; list-style: none; }
+.contents a { display: block; min-height: 44px; padding: 10px 8px; border-radius: 8px; font-size: 12px; line-height: 1.7; text-decoration: none; color: var(--muted); transition: background .16s,color .16s; }
+.contents a:hover { background: var(--surface); color: var(--primary); }
+.document { min-width: 0; }
+.document section { padding: 28px 0; border-bottom: 1px solid var(--border); }
+.document section:last-child { border: 0; padding-bottom: 0; }
+h2 { margin: 0 0 16px; font-size: 20px; line-height: 1.5; letter-spacing: -.02em; }
+p { margin: 0 0 16px; }
+ul { margin: 0; padding-left: 22px; }
+li { margin-bottom: 12px; padding-left: 3px; }
+li:last-child, section > :last-child { margin-bottom: 0; }
+li::marker { color: var(--muted); }
+code { padding: 2px 5px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px; font-size: .9em; }
+.notice, .warning { padding: 18px 20px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-2); font-size: 14px; }
+.notice { border-left: 3px solid var(--success); }
+.warning { border-color: color-mix(in srgb,var(--warning) 24%,var(--surface)); border-left: 3px solid var(--warning); background: var(--warning-soft); color: var(--warning); }
+.site-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding: 24px 4px 8px; font-size: 12px; color: var(--muted); }
+.site-footer p { margin: 0; }
+.footer-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.button { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 8px 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); font-size: 12px; font-weight: 700; text-decoration: none; transition: transform .16s,box-shadow .16s; }
+.button:hover { transform: translateY(-1px); box-shadow: 0 7px 20px rgba(16,24,40,.08); }
+@keyframes card-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width:760px) {
+  .layout { grid-template-columns: minmax(0,1fr); gap: 24px; }
+  .contents { position: static; padding: 12px 16px; }
+  .contents ol { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px 12px; }
+}
+@media (max-width:420px) {
+  .site-header { gap: 12px; } .page-nav { width: 100%; } .page-nav a { flex: 1; }
+  .contents ol { grid-template-columns: 1fr; } .layout { padding: 20px; }
+  .hero { padding: 24px 20px; } .site-footer { align-items: flex-start; flex-direction: column; }
+}
+@media (prefers-color-scheme:dark) {
+  :root { color-scheme: dark; --bg:#141820; --surface:#1e2530; --surface-2:#252e3a; --text:#f2f5f8; --muted:#b4bfcd; --border:#3a4656; --primary:#ff958c; --brand:#ff5e52; --success:#68d896; --success-soft:#173a29; --warning:#ffb4aa; --warning-soft:#481f24; --link:#9fc3ff; --shadow:0 24px 70px rgba(0,0,0,.25); }
+}
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .page { animation:none; } a { transition:none !important; } }
+@media print {
+  body { padding:0; background:#fff; color:#000; } .site-header,.sidebar,.site-footer,.skip-link { display:none; }
+  .page { width:100%; border:0; box-shadow:none; animation:none; } .hero { padding:0 0 20px; }
+  .hero::before { display:none; } .layout { display:block; padding:20px 0; }
+  .document section { break-inside:avoid; } a,.warning,.notice,.updated,.lead,.eyebrow { color:#000; }
+}
+  
+.page-nav { flex-wrap:wrap; }
+.quick-links { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.quick-link { display:flex; flex-direction:column; gap:4px; padding:18px; border:1px solid var(--border); border-radius:14px; background:var(--surface-2); text-decoration:none; color:var(--text); transition:transform .16s,background .16s; }
+.quick-link:hover { transform:translateY(-2px); background:var(--success-soft); }
+.quick-link span { color:var(--muted); font-size:12px; }
+.quick-link b { font-size:14px; }
+.document ol { padding-left:24px; }
+.document ul + p, .document ol + p { margin-top:16px; }
+.document h3 { font-size:16px; margin:24px 0 12px; }
+.steps li { padding-left:6px; margin-bottom:16px; }
+.steps li::marker { color:var(--primary); font-weight:750; }
+.table-wrap { max-width:100%; overflow-x:auto; margin:16px 0; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+caption { text-align:left; color:var(--muted); padding-bottom:8px; }
+th,td { text-align:left; vertical-align:top; padding:12px; border:1px solid var(--border); }
+th { color:var(--text); background:var(--surface-2); }
+.qa { border:1px solid var(--border); border-radius:12px; background:var(--surface); margin:12px 0; }
+.qa summary { position:relative; padding:16px 42px 16px 16px; min-height:52px; list-style:none; cursor:pointer; font-size:15px; line-height:1.7; font-weight:700; border-radius:12px; }
+.qa summary::-webkit-details-marker { display:none; }
+.qa summary::after { content:"+"; position:absolute; right:16px; top:14px; color:var(--primary); font-size:20px; }
+.qa[open] summary::after { content:"−"; }
+.qa summary:hover { background:var(--surface-2); }
+.qa[open] summary { border-bottom:1px solid var(--border); border-radius:12px 12px 0 0; }
+.answer { padding:16px; color:var(--muted); font-size:14px; }
+.answer > :last-child { margin-bottom:0; }
+@media(max-width:600px) { .quick-links { grid-template-columns:1fr; } .page-nav { width:100%; } .page-nav a { flex:1 1 calc(50% - 4px); } }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#document">跳到正文</a>
+<header class="site-header"><a class="brand" href="https://johnlee1997.github.io/"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19V9m7 10V5m7 14v-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="m4 6 5-3 5 3 6-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>各平台数据统计</a>
+<nav class="page-nav" aria-label="帮助与政策">
+<a href="guide.html" aria-current="page">使用手册</a>
+<a href="faq.html">常见问题</a>
+<a href="privacy.html">隐私政策</a>
+<a href="terms.html">销售条款</a>
+</nav></header>
+<main class="page">
+<header class="hero"><p class="eyebrow"><span class="document-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H6V3h1Zm7 0v5h4M9 12h6M9 16h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>用户帮助中心</p><h1>使用手册</h1><p class="lead">从第一次登录到查询、导出和充值，按步骤开始使用各平台数据统计。</p><p class="updated">适用版本：2.1.4 · 更新日期：2026 年 9 月 10 日 · 基于当前实现编写</p></header>
+<div class="introduction"><div class="quick-links"><a class="quick-link" href="#query"><b>01 · 开始第一次查询</b><span>选平台、填账号、选日期</span></a><a class="quick-link" href="#results"><b>02 · 读懂统计结果</b><span>分清内容类型与统计口径</span></a><a class="quick-link" href="#payment"><b>03 · 了解积分与付款</b><span>先核对订单，再进行转账</span></a></div></div>
+<div class="layout"><aside class="sidebar"><details class="contents" open><summary>本页目录</summary><nav aria-label="章节目录"><ol>
+<li><a href="#start">1. 认识软件与准备工作</a></li>
+<li><a href="#account">2. 注册、验证与登录</a></li>
+<li><a href="#query">3. 完成第一次数据查询</a></li>
+<li><a href="#results">4. 理解结果与内容分类</a></li>
+<li><a href="#history">5. 查询历史与 CSV 导出</a></li>
+<li><a href="#credits">6. 免费积分、会员与永久积分</a></li>
+<li><a href="#payment">7. 充值与订单处理</a></li>
+<li><a href="#settings">8. 界面设置与获取帮助</a></li>
+</ol></nav></details></aside>
+<article class="document" id="document" aria-label="使用手册正文">
+<section id="start" aria-labelledby="heading-start"><h2 id="heading-start">1. 认识软件与准备工作</h2><p>各平台数据统计是 Chrome 扩展，用于查询 YouTube 与 X（Twitter）博主在指定日期范围内发布的公开内容，汇总数据并导出 CSV。它不是自动发帖工具，也不会读取私信或获取私有频道数据。</p>
+<ol class="steps"><li><strong>准备电脑上的 Chrome 浏览器。</strong>通过发布者提供的正式商店入口安装；受邀测试用户按发布者给出的测试包说明安装。本页不提供未经核验的安装包或商店链接。</li><li><strong>打开扩展。</strong>点击 Chrome 工具栏的扩展图标，选择“各平台数据统计”；需要时将它固定到工具栏。</li><li><strong>准备可正常收信的邮箱，或 Google 账号。</strong>公开使用手册可以在手机查看，但实际数据查询需回到电脑上的扩展完成。</li></ol><p class="notice">本手册基于扩展 2.1.4 的当前实现。线上可用性取决于服务配置、平台接口和安全限制；请以扩展中的实际提示为准。</p></section>
+<section id="account" aria-labelledby="heading-account"><h2 id="heading-account">2. 注册、验证与登录</h2><h3>使用邮箱注册</h3><ol class="steps"><li>切换到“注册页面”，填写完整邮箱地址。格式检查只判断写法，不能证明邮箱存在或一定能收到邮件。</li><li>设置 <strong>10–128 位密码</strong>，同时包含大写字母、小写字母、数字和特殊符号。确认密码必须一致；强度条用于辅助检查，不要复用其他网站的密码。</li><li>阅读并同意<a href="privacy.html">隐私政策</a>，完成人机验证，再点击“注册”。</li><li>按页面提示检查邮箱，点击确认链接。看到验证成功页后，返回扩展登录；邮箱验证页本身不是数据查询页面。</li></ol>
+<p>没有收到邮件？点击“没有收到确认邮件？”或“已经注册但没收到邮件？”，核对邮箱后重新发送。发送后有 <strong>60 秒冷却倒计时</strong>；若服务返回更长的等待时间，以实际提示为准。也请检查垃圾邮件和邮箱拦截规则。</p>
+<h3>使用 Google 登录</h3><p>点击“使用 Google 账号登录”，在授权窗口选择账号并完成登录。请等待回到扩展，不要提前关闭仍在处理的授权窗口。取消或出现错误时，回到登录页根据提示重试。</p>
+<p class="notice">免费积分在邮箱确认并完成账户激活后可用；仅填写注册表单不等于已经登录，也不等于积分已经到账。</p></section>
+<section id="query" aria-labelledby="heading-query"><h2 id="heading-query">3. 完成第一次数据查询</h2><ol class="steps"><li><strong>进入“数据统计”。</strong>先选择 YouTube 或“推特 (X)”。</li><li><strong>检查“博主 ID / 用户名”。</strong>在支持的博主页面打开扩展时，会尝试填入候选账号；请核对，不要把显示昵称当成唯一账号。</li><li><strong>选择时间。</strong>“快捷天数”可选最近 3、7、14、30 天；“日历范围”先点开始日期，再点结束日期，结束日期包含在范围内。单次范围不能超过一年。</li><li><strong>点击“开始统计”。</strong>大范围查询可能出现积分消耗估算确认框；估算不等于最终扣分。等待结果和实际消耗提示，不要连续重复点击。</li></ol>
+<div class="table-wrap"><table><caption>账号输入方式</caption><thead><tr><th scope="col">平台</th><th scope="col">应填写</th><th scope="col">不要填写</th></tr></thead><tbody><tr><td>YouTube</td><td>频道 ID（通常以 UC 开头）或频道 @handle</td><td>视频标题、视频链接或单纯显示昵称</td></tr><tr><td>X（Twitter）</td><td>用户名，可带 @；以账号主页中的唯一用户名为准</td><td>整条推文链接或显示昵称</td></tr></tbody></table></div>
+<p>先用较短日期范围熟悉结果，再按需要扩大范围。日期决定纳入哪些已发布内容，不代表所有浏览、点赞和评论都发生在这段时间内。</p></section>
+<section id="results" aria-labelledby="heading-results"><h2 id="heading-results">4. 理解结果与内容分类</h2><p>结果包含内容合计、浏览或观看总数、评论、点赞、当前粉丝总数以及内容明细。汇总基于本次接口实际返回并纳入统计的内容。</p>
+<div class="table-wrap"><table><caption>内容分类与口径</caption><thead><tr><th scope="col">平台</th><th scope="col">分类</th><th scope="col">注意事项</th></tr></thead><tbody><tr><td>X（Twitter）</td><td>原创发帖、回复、转帖、引用帖</td><td>按接口提供的类型信息分类，不要将合计直接当成原创数量。</td></tr><tr><td>YouTube</td><td>普通视频、短视频、直播/首播</td><td>短视频按时长 ≤3 分钟归类，不是 YouTube 官方 Shorts 标记。</td></tr></tbody></table></div>
+<ul><li><strong>粉丝数是当前值：</strong>不是所选期间的新增长粉数，也不是该日期的历史快照。</li><li><strong>互动数据不是区间增量：</strong>不能把某个发布日期区间的观看合计理解为该区间新增观看。</li><li><strong>“结果可能不完整”需要保留：</strong>积分、单次数据量、接口或预算限制可能提前结束查询。不要把部分结果作为全量结果对外使用。</li><li><strong>数值可能随时间变化：</strong>平台后续互动、删除内容、缓存与接口返回范围都可能造成差异。</li></ul></section>
+<section id="history" aria-labelledby="heading-history"><h2 id="heading-history">5. 查询历史与 CSV 导出</h2><h3>导出本次内容明细</h3><p>在统计结果下方点击“导出表格 (CSV)”。文件包含内容类型、标题、发布时间、链接、点赞、评论、浏览和当前粉丝量等明细字段。没有内容时无法导出内容明细。</p>
+<h3>回看与导出历史汇总</h3><ol class="steps"><li>打开“查询历史”，必要时点击“刷新”。</li><li>选择需要的记录，或点击“全选”。</li><li>点击“导出所选”。历史 CSV 包含查询时间、平台、博主、起止日期、内容合计、各类型数量、汇总指标及消耗积分。</li></ol>
+<p class="notice">两种 CSV 用途不同：<strong>结果页导出每条内容，查询历史导出每次查询的汇总</strong>。旧记录如缺少后来新增的分类信息，请勿把它当成最新完整统计。</p><p>CSV 可用支持该格式的表格软件打开。显示乱码时，使用“从文本/CSV 导入”并选择 UTF-8；导出后请检查日期、数字及列分隔是否符合你的使用需求。</p></section>
+<section id="credits" aria-labelledby="heading-credits"><h2 id="heading-credits">6. 免费积分、会员与永久积分</h2><div class="table-wrap"><table><caption>当前权益说明（购买以订单页面为准）</caption><thead><tr><th scope="col">类型</th><th scope="col">额度与有效期</th><th scope="col">说明</th></tr></thead><tbody><tr><td>免费账户</td><td>激活后每月 2,000 数据积分</td><td>按服务端自然月刷新，不享会员充值加赠。</td></tr><tr><td>30 天会员</td><td>当前定价 15.3 USDT；到账后立即获得 200,000 月度数据积分</td><td>从付款到账起算 30 天，到期转免费，手动续费；不是每天或每到月初再赠 20 万。</td></tr><tr><td>永久数据积分</td><td>购买后计入独立余额，不按月刷新</td><td>会员期间的加赠以实际订单为准；会员到期不清除已到账的永久余额。</td></tr></tbody></table></div>
+<p>查询先使用当前可用的月度积分，不足部分再使用永久积分。界面的两张余额卡和水位表示各自的剩余额度；永久积分还会显示累计充值与已使用的对比。</p><p>查询按实际处理与分页成本结算，不是“一次查询固定 1 分”。同条件的 X 查询若命中有效的 24 小时缓存，会明确提示本次未消耗积分；不要假设每次重复查询都一定命中缓存。</p><p class="notice">积分充足也可能遇到频率或成本保护限制。会员不是无限查询通行证；最终以查询提示、消耗记录和订单权益为准。</p></section>
+<section id="payment" aria-labelledby="heading-payment"><h2 id="heading-payment">7. 充值与订单处理</h2><p class="warning"><strong>⚠ 目前暂不支持 USDT 退款。</strong>付款前核对商品、网络、USDT 合约、收款地址和含全部尾数的完整金额；勿多付、少付或重复转账。多付不会额外增加积分。详见<a href="terms.html">销售条款</a>。</p>
+<ol class="steps"><li>点击“订阅会员或充值积分”，阅读并确认相关条款，选择会员或永久积分套餐。</li><li>订单创建后，检查<strong>实际应付金额和倒计时</strong>。应付金额含匹配尾数，可能不同于套餐标价；不要自行取整。</li><li>选择二维码模式。<strong>Web3 模式</strong>供支持 ERC-681 的钱包读取网络、合约、收款地址与金额；<strong>交易所模式</strong>只包含收款地址，必须手动填写 X Layer、USDT 和完整金额。扫码后仍要核对。</li><li>从钱包或交易所提交转账。确认收款方实际收到的金额与订单一致；如果平台从转账金额扣手续费，先查清实际到账数额再提交。本手册不提供固定收款地址，一律使用当前订单地址。</li><li>提交后等待链上确认和订单更新。自动监听受服务运行状态影响，不保证即时到账；不要因等待而再次付款。</li><li>未及时到账时，在钱包交易记录中复制该笔转账的 TxID，粘贴到订单页并点击“确认到账”。输入框旁的问号也有说明。</li></ol>
+<p>“查询充值历史”可查看状态和重新进入未付款订单。取消订单只适用于<strong>确认没有已提交或处理中的转账</strong>的情况；取消和订单到期都不会撤回链上交易。</p><p>如果实际金额、网络或订单状态不符，请保留订单号与交易哈希并联系支持，不要盲目新建订单重新付款。</p></section>
+<section id="settings" aria-labelledby="heading-settings"><h2 id="heading-settings">8. 界面设置与获取帮助</h2><ul><li><strong>切换语言：</strong>使用面板中的“中 / EN”控件切换简体中文或英文。</li><li><strong>切换主题：</strong>进入“设置 → 界面外观”，选择浅色或深色；偏好会保存。</li><li><strong>修改密码：</strong>进入“设置 → 账户管理”，按提示输入新密码、确认密码并完成人机验证。</li><li><strong>更换使用账户：</strong>在设置中退出当前账号，再登录目标账号。查询记录、余额和订单以实际登录账户为准。</li></ul>
+<p>遇到问题先查看<a href="faq.html">常见问题</a>。仍无法解决时，联系 <a href="mailto:ximplexxx@protonmail.com">ximplexxx@protonmail.com</a>，提供扩展版本、发生时间、操作步骤及错误提示；付款问题附订单号和交易哈希。</p><p class="warning">不要发送密码、验证码、登录令牌、私钥或助记词。截图请遮盖不必要的个人信息。数据访问或删除请求请从注册邮箱联系支持，公开链上记录无法由扩展删除。</p></section>
+</article></div></main>
+<footer class="site-footer"><p>各平台数据统计 · <a href="mailto:ximplexxx@protonmail.com">联系支持</a></p><div class="footer-links"><a class="button" href="faq.html">查看常见问题</a><a class="button" href="#top">返回顶部 ↑</a></div></footer>
+</body>
+</html>
