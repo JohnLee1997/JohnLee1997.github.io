@@ -1,3 +1,7 @@
 theme: jekyll-theme-hacker
 title: 统计插件条款与QA
 description: 欢迎使用我们平台插件，请仔细阅读条款！
+# Keep Markdown sources in Git without generating conflicting privacy.html / terms.html.
+exclude:
+  - privacy.md
+  - terms.md
